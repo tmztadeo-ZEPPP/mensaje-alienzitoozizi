@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor Alienígena de Amor</title>
+    <style>
+        body {
+            background-color: #0b0914;
+            color: #00ff66;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: rgba(20, 16, 36, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid #00ff66;
+            box-shadow: 0 0 20px #00ff66;
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff66;
+        }
+        .alien-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ffff;
+            margin: 30px 0;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px #00ffff;
+            min-height: 40px;
+        }
+        button {
+            background-color: #00ff66;
+            color: #0b0914;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ff66;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #00ffff;
+            box-shadow: 0 0 25px #00ffff;
+            transform: scale(1.05);
+        }
+        .ufo {
+            font-size: 3rem;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="ufo">🛸</div>
+    <h1>MENSAJE RECIBIDO</h1>
+    
+    <div class="alien-text" id="mensaje">ZEEP ZIIP Z-ZIP ZAP! 💖</div>
+    
+    <button onclick="traducir()">TRADUCIR MENSAJE</button>
+</div>
+
+<script>
+    let traducido = false;
+    function traducir() {
+        const txt = document.getElementById('mensaje');
+        const btn = document.querySelector('button');
+        
+        if (!traducido) {
+            txt.innerHTML = "¡TE AMO MUCHO! 💖";
+            txt.style.color = "#ff3366";
+            txt.style.textShadow = "0 0 8px #ff3366";
+            btn.innerHTML = "VER ORIGINAL";
+            traducido = true;
+        } else {
+            txt.innerHTML = "ZEEP ZIIP Z-ZIP ZAP! 💖";
+            txt.style.color = "#00ffff";
+            txt.style.textShadow = "0 0 8px #00ffff";
+            btn.innerHTML = "TRADUCIR MENSAJE";
+            traducido = false;
+        }
+    }
+</script>
+
+</body>
+</html>

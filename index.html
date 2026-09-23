@@ -7,50 +7,37 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: linear-gradient(135deg, #ffeef8 0%, #ffd3eb 100%); min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; position: relative; padding: 20px; }
-        
-        /* Lluvia de corazones animados */
-        .heart-bg { position: fixed; top: -10%; font-size: 24px; animation: float 6s linear infinite; opacity: 0.6; z-index: 0; user-select: none; }
+        .heart-bg { position: fixed; top: -10%; font-size: 24px; animation: float 6s linear infinite; opacity: 0.6; z-index: 1; user-select: none; }
         @keyframes float {
             0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
-
-        .container { max-width: 600px; width: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border-radius: 30px; padding: 30px; box-shadow: 0 15px 35px rgba(255, 154, 200, 0.3); text-align: center; z-index: 10; margin-top: 20px; border: 2px solid #ffb7dd; }
+        .container { max-width: 600px; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 30px; padding: 30px; box-shadow: 0 15px 35px rgba(255, 154, 200, 0.3); text-align: center; z-index: 10; margin-top: 20px; border: 2px solid #ffb7dd; position: relative; }
         h1 { color: #ff4a9e; font-size: 2.2rem; margin-bottom: 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
         .subtitle { color: #8e6578; font-size: 1.1rem; margin-bottom: 25px; font-style: italic; }
-
-        /* Reproductor estético */
         .music-player { background: #fff0f7; padding: 12px 20px; border-radius: 50px; display: inline-flex; align-items: center; gap: 15px; margin-bottom: 25px; border: 1px solid #ffccd9; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .play-btn { background: #ff4a9e; border: none; width: 35px; height: 35px; border-radius: 50%; color: white; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .track-info { font-size: 0.9rem; color: #ff4a9e; font-weight: bold; text-align: left; }
-
-        /* Contador */
         .counter-title { color: #ff69b4; font-weight: bold; margin-bottom: 10px; font-size: 1.2rem; }
         .counter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
         .counter-box { background: white; padding: 12px; border-radius: 15px; border: 2px solid #ffccd9; box-shadow: 0 5px 10px rgba(255,182,193,0.2); }
         .counter-number { font-size: 1.8rem; font-weight: bold; color: #ff4a9e; }
         .counter-label { font-size: 0.8rem; color: #9c7386; text-transform: uppercase; margin-top: 3px; }
-
-        /* Sobres interactivos 3D */
-        .grid-notes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 35px; }
-        .card-container { perspective: 1000px; height: 110px; cursor: pointer; }
+        .grid-notes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 35px; position: relative; z-index: 20; }
+        .card-container { perspective: 1000px; height: 110px; cursor: pointer; position: relative; }
         .card-3d { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .card-container.flipped .card-3d { transform: rotateY(180deg); }
         .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 18px; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .front { background: #ffeaee; border: 2px dashed #ff8da1; color: #ff4a9e; font-size: 1.8rem; }
+        .front { background: #ffeaee; border: 2px dashed #ff8da1; color: #ff4a9e; font-size: 1.8rem; z-index: 2; }
         .front::after { content: 'Tócame ✨'; font-size: 0.7rem; color: #b5808b; position: absolute; bottom: 8px; }
-        .back { background: white; border: 2px solid #ffb7dd; transform: rotateY(180deg); color: #614652; font-size: 0.88rem; font-weight: 500; text-align: center; }
-
-        /* Sección pregunta y botón travieso */
-        .question-zone { background: #fff6fa; padding: 25px; border-radius: 20px; border: 1px dashed #ff96ca; position: relative; min-height: 140px; }
+        .back { background: white; border: 2px solid #ffb7dd; transform: rotateY(180deg); color: #614652; font-size: 0.88rem; font-weight: 500; text-align: center; z-index: 1; }
+        .question-zone { background: #fff6fa; padding: 25px; border-radius: 20px; border: 1px dashed #ff96ca; position: relative; min-height: 160px; z-index: 20; }
         .question-title { color: #ff4a9e; font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; }
-        .btn-group { display: flex; justify-content: center; gap: 30px; align-items: center; position: relative; width: 100%; height: 50px; }
+        .btn-group { display: flex; justify-content: center; gap: 30px; align-items: center; position: relative; width: 100%; height: 60px; }
         .btn { padding: 12px 30px; font-size: 1rem; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        #yesBtn { background: #ff4a9e; color: white; }
+        #yesBtn { background: #ff4a9e; color: white; position: relative; z-index: 30; }
         #yesBtn:hover { transform: scale(1.1); background: #e03584; }
-        #noBtn { background: #968c91; color: white; position: absolute; z-index: 100; }
-
-        /* Celebración masiva */
+        #noBtn { background: #968c91; color: white; position: absolute; z-index: 40; transition: all 0.15s ease; left: 60%; top: 5px; }
         .celebration-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(255,255,255,0.95); z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; animation: fadeIn 0.5s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .celebration-title { font-size: 3rem; color: #ff4a9e; margin-bottom: 20px; animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate; }
@@ -58,17 +45,12 @@
     </style>
 </head>
 <body>
-
-    <!-- Audio Real de "Bocanada de amor" de tomas metrikf via un player estético -->
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop preload="auto">
         <source src="https://soundhelix.com" type="audio/mpeg">
     </audio>
-
     <div class="container">
         <h1>Para Mi Niña Hermosa 💕</h1>
         <p class="subtitle">Especialmente hecha por tu flaco...</p>
-
-        <!-- Música -->
         <div class="music-player">
             <button class="play-btn" id="playBtn">▶</button>
             <div class="track-info">
@@ -76,8 +58,6 @@
                 <span style="font-weight:normal; font-size:0.75rem; color:#a18190;">tomas metrikf</span>
             </div>
         </div>
-
-        <!-- El Marcador de Tiempo -->
         <p class="counter-title">⌛ Tiempo que llevo amándote:</p>
         <div class="counter-grid">
             <div class="counter-box"><div class="counter-number" id="days">00</div><div class="counter-label">Días</div></div>
@@ -85,8 +65,6 @@
             <div class="counter-box"><div class="counter-number" id="minutes">00</div><div class="counter-label">Min</div></div>
             <div class="counter-box"><div class="counter-number" id="seconds">00</div><div class="counter-label">Seg</div></div>
         </div>
-
-        <!-- Sobres Interactivos con "Flaco / Flako" -->
         <p class="counter-title" style="margin-bottom:15px;">✉️ Abre los sobres que te dejó tu flaco:</p>
         <div class="grid-notes">
             <div class="card-container" onclick="flipCard(this)">
@@ -114,8 +92,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Pregunta Romántica Interactiva con Botón que Huye -->
         <div class="question-zone" id="qZone">
             <div class="question-title">¿Me dejas ser el amor de tu vida por siempre? 🥺💘</div>
             <div class="btn-group">
@@ -124,20 +100,17 @@
             </div>
         </div>
     </div>
-
-    <!-- Pantalla Completa de Celebración Masiva -->
     <div class="celebration-overlay" id="victory">
         <div class="celebration-title">¡SABÍA QUE DIRÍAS QUE SÍ! 🥳🎉💖</div>
         <p style="font-size: 1.3rem; color: #82546b; max-width: 500px;">¡Tu flaco es oficialmente el más afortunado del universo! Te amo muchísimo, mi reina hermosa. ✨💍</p>
         <p style="font-size: 3rem; margin-top: 20px;">🥰👩‍❤️‍👨🛸🔥</p>
     </div>
-
     <script>
-        // Lluvia constante de corazones estéticos
         const emojis = ['💖', '💗', '🌸', '✨', '🛸', '🎈'];
         setInterval(() => {
             const heart = document.createElement('div');
             heart.classList.add('heart-bg');
+            heart.style.zIndex = "1";
             heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
@@ -146,10 +119,50 @@
             setTimeout(() => heart.remove(), 6000);
         }, 300);
 
-        // Control de Música Inteligente
         const audio = document.getElementById('bgMusic');
         const playBtn = document.getElementById('playBtn');
-        playBtn.addEventListener('click', () => {
+        playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             if(audio.paused) { audio.play(); playBtn.innerText = '⏸'; }
-// Reloj dinámico en Tiempo Real (Desde el 31 de Julio de 2026)const anniversaryDate = new Date("July 31, 2026 00:00:00").getTime();function updateCounter() {const now = new Date().getTime();const difference = now - anniversaryDate;const d = Math.floor(difference / (1000 * 60 * 60 * 24));const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));const s = Math.floor((difference % (1000 * 60)) / 1000);document.getElementById('days').innerText = d < 10 ? '0' + d : d;document.getElementById('hours').innerText = h < 10 ? '0' + h : h;document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;}setInterval(updateCounter, 1000);updateCounter();// Volteo de tarjetas 3Dfunction flipCard(card) { card.classList.toggle('flipped'); }// El Botón Travieso que Huyeconst noBtn = document.getElementById('noBtn');const qZone = document.getElementById('qZone');function moveButton() {const zoneWidth = qZone.clientWidth - noBtn.clientWidth - 20;const zoneHeight = qZone.clientHeight - noBtn.clientHeight - 20;const randomX = Math.max(10, Math.floor(Math.random() * zoneWidth));const randomY = Math.max(10, Math.floor(Math.random() * zoneHeight));noBtn.style.left = randomX + 'px';noBtn.style.top = randomY + 'px';}noBtn.addEventListener('mouseenter', moveButton);noBtn.addEventListener('click', moveButton);// Despliega Pantalla de Celebraciónfunction celebrate() { document.getElementById('victory').style.display = 'flex'; 
-                                 
+            else { audio.pause(); playBtn.innerText = '▶'; }
+        });
+
+        const anniversaryDate = new Date(2026, 6, 31, 0, 0, 0).getTime();
+        function updateCounter() {
+            const now = new Date().getTime();
+            let difference = now - anniversaryDate;
+            if (difference < 0) difference = 0;
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+            document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        function flipCard(card) { card.classList.toggle('flipped'); }
+
+        const noBtn = document.getElementById('noBtn');
+        const qZone = document.getElementById('qZone');
+        function moveButton(e) {
+            e.preventDefault();
+            const padding = 15;
+            const zoneWidth = qZone.clientWidth - noBtn.clientWidth - (padding * 2);
+            const zoneHeight = qZone.clientHeight - noBtn.clientHeight - (padding * 2);
+            const randomX = Math.max(padding, Math.floor(Math.random() * zoneWidth));
+            const randomY = Math.max(padding, Math.floor(Math.random() * zoneHeight));
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+        noBtn.addEventListener('mouseenter', moveButton);
+        noBtn.addEventListener('touchstart', moveButton);
+        noBtn.addEventListener('click', moveButton);
+
+        function celebrate() { document.getElementById('victory').style.display = 'flex'; }
+    </script>
+</body>
+</html>
